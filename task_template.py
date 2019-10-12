@@ -48,64 +48,69 @@ print (50*'-')
 if username in users.keys():
     if password == users[username]:
         print('We have 3 texts to be analyzed.')
-        int_text = int(input('Enter a number btw. 1 and 3 to select: '))
-        text = TEXTS[int_text-1]
+        try:
+            int_text = int(input('Enter a number btw. 1 and 3 to select: '))
+            text = TEXTS[int_text-1]
 
-        text_split = text.split()
-        print('There are ', len(text_split), ' words in the selected text.')
+            text_split = text.split()
+            print('There are ', len(text_split), ' words in the selected text.')
 
-        capital_letters = 0
-        upper_letters = 0
-        lower_letters = 0
-        numeric_letters = 0
-        sum_numeric_letter = 0
-
-        for word in text_split:
-            if word.istitle():
-                capital_letters += 1
-
-            elif word.isupper():
-                upper_letters += 1
-
-            elif word.islower():
-                lower_letters += 1
-
-            elif word.isnumeric():
-                numeric_letters += 1
-                sum_numeric_letter += int(word)
-
-        print('There are ', len(text_split), ' words in the selected text.')
-        print('There are ', capital_letters, ' titlecase words')
-        print('There are ', upper_letters, ' uppercase words')
-        print('There are ', lower_letters, ' lowercase words')
-        print('There are ', numeric_letters, ' numeric strings')
+            capital_letters = 0
+            upper_letters = 0
+            lower_letters = 0
+            numeric_letters = 0
+            sum_numeric_letter = 0
 
 
-        all_freq = {}
+            for word in text_split:
+                if word.istitle():
+                    capital_letters += 1
 
-        for i in text_split:
-            if i in all_freq:
-                all_freq[i] += 1
-            else:
-                all_freq[i] = 1
+                elif word.isupper():
+                    upper_letters += 1
 
-        sorted_items = sorted(all_freq.items(), key = lambda item : item[1])
-        count = 1
-        for title, number in sorted_items:
-            print(count, number * '*', number )
+                elif word.islower():
+                    lower_letters += 1
 
-            count += 1
+                elif word.isnumeric():
+                    numeric_letters += 1
+                    sum_numeric_letter += int(word)
 
-        print(50 * '-')
+            print('There are ', len(text_split), ' words in the selected text.')
+            print('There are ', capital_letters, ' titlecase words')
+            print('There are ', upper_letters, ' uppercase words')
+            print('There are ', lower_letters, ' lowercase words')
+            print('There are ', numeric_letters, ' numeric strings')
 
-        print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
 
-        print(50 * '-')
+            all_freq = {}
+
+            for i in text_split:
+                if i in all_freq:
+                    all_freq[i] += 1
+                else:
+                    all_freq[i] = 1
+
+            sorted_items = sorted(all_freq.items(), key = lambda item : item[1])
+            count = 1
+            for title, number in sorted_items:
+                print(count, number * '*', number )
+
+                count += 1
+
+            print(50 * '-')
+
+            print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
+
+            print(50 * '-')
+
+        except:
+            print('Integer must be inserted ')
 
     else:
         print('wrong login or password')
-
-print (50*'-')
+else:
+    print('wrong login or password')
 
 
 
