@@ -30,3 +30,71 @@ other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish, 
 garpike and stingray are also present.'''
 ]
+
+users = { 'bob' : '123',
+          'ann' : 'pass123',
+          'mike': 'password123',
+          'liz' : 'pass123' }
+
+
+print ('Welcome to the app. Please log in:')
+print (50*'-')
+
+username = input('USERNAME: ')
+password = input('PASSWORD: ')
+
+print (50*'-')
+
+if username in users.keys():
+    if password == users[username]:
+        print('We have 3 texts to be analyzed.')
+        int_text = int(input('Enter a number btw. 1 and 3 to select: '))
+        text = TEXTS[int_text-1]
+
+        text_split = text.split()
+        print('There are ', len(text_split), ' words in the selected text.')
+
+        capital_letters = 0
+        upper_letters = 0
+        lower_letters = 0
+        numeric_letters = 0
+
+        for word in text_split:
+            if word.istitle():
+                capital_letters += 1
+
+            elif word.isupper():
+                upper_letters += 1
+
+            elif word.islower():
+                lower_letters += 1
+
+            elif word.isnumeric():
+                numeric_letters += 1
+
+        print('There are ', len(text_split), ' words in the selected text.')
+        print('There are ', capital_letters, ' titlecase words')
+        print('There are ', upper_letters, ' uppercase words')
+        print('There are ', lower_letters, ' lowercase words')
+        print('There are ', numeric_letters, ' numeric strings')
+
+
+        all_freq = {}
+
+        for i in text_split:
+            if i in all_freq:
+                all_freq[i] += 1
+            else:
+                all_freq[i] = 1
+
+        sorted_items = sorted(all_freq.items(), key = lambda item : item[1])
+
+        print(sorted_items)
+
+    else:
+        print('wrong login or password')
+
+print (50*'-')
+
+
+
