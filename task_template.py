@@ -58,6 +58,7 @@ if username in users.keys():
         upper_letters = 0
         lower_letters = 0
         numeric_letters = 0
+        sum_numeric_letter = 0
 
         for word in text_split:
             if word.istitle():
@@ -71,6 +72,7 @@ if username in users.keys():
 
             elif word.isnumeric():
                 numeric_letters += 1
+                sum_numeric_letter += int(word)
 
         print('There are ', len(text_split), ' words in the selected text.')
         print('There are ', capital_letters, ' titlecase words')
@@ -88,8 +90,17 @@ if username in users.keys():
                 all_freq[i] = 1
 
         sorted_items = sorted(all_freq.items(), key = lambda item : item[1])
+        count = 1
+        for title, number in sorted_items:
+            print(count, number * '*', number )
 
-        print(sorted_items)
+            count += 1
+
+        print(50 * '-')
+
+        print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
+
+        print(50 * '-')
 
     else:
         print('wrong login or password')
