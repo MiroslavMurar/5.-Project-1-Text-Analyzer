@@ -51,63 +51,70 @@ print (50*'-')
 if username in users.keys():
     if password == users[username]:
         print('We have 3 texts to be analyzed.')
+        choice = None
         try:
             choice = int(input('Enter a number btw. 1 and 3 to select: '))
-            text = TEXTS[choice-1]
+        except ValueError:
+            print('Error when decoding the input. You have to insert a number!')
+            exit()
 
-            text_split = text.split()
-            print('There are', len(text_split), 'words in the selected text.')
+        text = None
+        try:
+            text = TEXTS[choice - 1]
+        except KeyError:
+            print('There is no text', choice)
+            exit()
 
-            capital_words = 0
-            upper_words = 0
-            lower_words = 0
-            numeric_words = 0
-            sum_numeric_words = 0
+        text_split = text.split()
+        print('There are', len(text_split), 'words in the selected text.')
+
+        capital_words = 0
+        upper_words = 0
+        lower_words = 0
+        numeric_words = 0
+        sum_numeric_words = 0
 
 
-            for word in text_split:
-                if word.istitle():
-                    capital_words += 1
-                elif word.isupper():
-                    upper_words += 1
-                elif word.islower():
-                    lower_words += 1
-                elif word.isnumeric():
-                    numeric_words += 1
-                    sum_numeric_words += int(word)
+        for word in text_split:
+            if word.istitle():
+                capital_words += 1
+            elif word.isupper():
+                upper_words += 1
+            elif word.islower():
+                lower_words += 1
+            elif word.isnumeric():
+                numeric_words += 1
+                sum_numeric_words += int(word)
 
-            print('There are', capital_words, 'titlecase words')
-            print('There are', upper_words, 'uppercase words')
-            print('There are', lower_words, 'lowercase words')
-            print('There are', numeric_words, 'numeric strings')
+        print('There are', capital_words, 'titlecase words')
+        print('There are', upper_words, 'uppercase words')
+        print('There are', lower_words, 'lowercase words')
+        print('There are', numeric_words, 'numeric strings')
 
-            all_freq = {}
+        all_freq = {}
 
-            for i in text_split:
-                if i[-1] in',.':
-                    i = i[:-1]
-                    if len(i) in all_freq:
-                        all_freq[len(i)] += 1
-                    else:
-                        all_freq[len(i)] = 1
-                elif len(i) in all_freq:
+        for i in text_split:
+            if i[-1] in',.':
+                i = i[:-1]
+                if len(i) in all_freq:
                     all_freq[len(i)] += 1
                 else:
                     all_freq[len(i)] = 1
-                print(i, len(i))
-            print(50 * '-')
+            elif len(i) in all_freq:
+                all_freq[len(i)] += 1
+            else:
+                all_freq[len(i)] = 1
+        print(50 * '-')
 
-            sorted_items = sorted(all_freq.items(), key = lambda item : item[0])
+        sorted_items = sorted(all_freq.items(), key = lambda item : item[0])
 
-            for title, number in sorted_items:
-                print(title, number * '*', number )
+        for title, number in sorted_items:
+            print(title, number * '*', number )
 
-            print(50 * '-')
-            print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
-            print(50 * '-')
+        print(50 * '-')
+        print('If we summed all the numbers in this text we would get: ', sum_numeric_words)
+        print(50 * '-')
 
-        except:
-            print('Integer must be inserted ')
     else:
         print('wrong login or password')
 else:
