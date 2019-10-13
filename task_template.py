@@ -29,12 +29,15 @@ represent several varieties of perch, as well as
 other freshwater genera and herring similar to those 
 in modern oceans. Other fish such as paddlefish, 
 garpike and stingray are also present.'''
+
 ]
 
-users = { 'bob' : '123',
-          'ann' : 'pass123',
-          'mike': 'password123',
-          'liz' : 'pass123' }
+users = {
+    'bob' : '123',
+    'ann' : 'pass123',
+    'mike': 'password123',
+    'liz' : 'pass123'
+}
 
 
 print ('Welcome to the app. Please log in:')
@@ -49,64 +52,62 @@ if username in users.keys():
     if password == users[username]:
         print('We have 3 texts to be analyzed.')
         try:
-            int_text = int(input('Enter a number btw. 1 and 3 to select: '))
-            text = TEXTS[int_text-1]
+            choice = int(input('Enter a number btw. 1 and 3 to select: '))
+            text = TEXTS[choice-1]
 
             text_split = text.split()
-            print('There are ', len(text_split), ' words in the selected text.')
+            print('There are', len(text_split), 'words in the selected text.')
 
-            capital_letters = 0
-            upper_letters = 0
-            lower_letters = 0
-            numeric_letters = 0
-            sum_numeric_letter = 0
+            capital_words = 0
+            upper_words = 0
+            lower_words = 0
+            numeric_words = 0
+            sum_numeric_words = 0
 
 
             for word in text_split:
                 if word.istitle():
-                    capital_letters += 1
-
+                    capital_words += 1
                 elif word.isupper():
-                    upper_letters += 1
-
+                    upper_words += 1
                 elif word.islower():
-                    lower_letters += 1
-
+                    lower_words += 1
                 elif word.isnumeric():
-                    numeric_letters += 1
-                    sum_numeric_letter += int(word)
+                    numeric_words += 1
+                    sum_numeric_words += int(word)
 
-            print('There are ', len(text_split), ' words in the selected text.')
-            print('There are ', capital_letters, ' titlecase words')
-            print('There are ', upper_letters, ' uppercase words')
-            print('There are ', lower_letters, ' lowercase words')
-            print('There are ', numeric_letters, ' numeric strings')
-
+            print('There are', capital_words, 'titlecase words')
+            print('There are', upper_words, 'uppercase words')
+            print('There are', lower_words, 'lowercase words')
+            print('There are', numeric_words, 'numeric strings')
 
             all_freq = {}
 
             for i in text_split:
-                if i in all_freq:
-                    all_freq[i] += 1
+                if i[-1] in',.':
+                    i = i[:-1]
+                    if len(i) in all_freq:
+                        all_freq[len(i)] += 1
+                    else:
+                        all_freq[len(i)] = 1
+                elif len(i) in all_freq:
+                    all_freq[len(i)] += 1
                 else:
-                    all_freq[i] = 1
-
-            sorted_items = sorted(all_freq.items(), key = lambda item : item[1])
-            count = 1
-            for title, number in sorted_items:
-                print(count, number * '*', number )
-
-                count += 1
-
+                    all_freq[len(i)] = 1
+                print(i, len(i))
             print(50 * '-')
 
-            print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
+            sorted_items = sorted(all_freq.items(), key = lambda item : item[0])
 
+            for title, number in sorted_items:
+                print(title, number * '*', number )
+
+            print(50 * '-')
+            print('If we summed all the numbers in this text we would get: ', sum_numeric_letter)
             print(50 * '-')
 
         except:
             print('Integer must be inserted ')
-
     else:
         print('wrong login or password')
 else:
